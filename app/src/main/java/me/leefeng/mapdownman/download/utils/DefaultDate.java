@@ -7,11 +7,11 @@ import android.os.Environment;
  */
 public class DefaultDate {
     // 请求网络IP
-    public static String DOWNIP = "http://192.168.100.172:81/";
+    public static String DOWNIP = "http://106.120.75.105:92/";
     // 文件下载的目录
     public static String FILE_MAPDATE = Environment.getExternalStorageDirectory().toString()+"/Siwei/MapDate/";
     // 文件下载url
-    public static String downUrl = DOWNIP + "shenzhen/sql/download.xml";
+    public static String downUrl = DOWNIP + "download.xml";
     // poi文件下载的目录
     public static String FILE_POIDATE = Environment.getExternalStorageDirectory()+"/Siwei/PoiDate/";
 }

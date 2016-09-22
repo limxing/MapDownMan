@@ -12,5 +12,5 @@ public interface DownView {
 
     void initComplet();
 
-    void checkSd();
+    void checkSD();
 }

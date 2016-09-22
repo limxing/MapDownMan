@@ -194,10 +194,10 @@ public class DownAdapter extends BaseAdapter implements View.OnClickListener, Co
                 }
             }
             if (!downMap.isDown()) {
-                Log.i("leefengg",getBlank()+"/"+downMap.getFileSize());
-                if (getBlank()<downMap.getFileSize()){
-                    Toast.makeText(context,"内存空间不足",Toast.LENGTH_LONG).show();
-                }else {
+                Log.i("leefengg", getBlank() + "/" + downMap.getFileSize());
+                if (getBlank() < downMap.getFileSize()) {
+                    Toast.makeText(context, "内存空间不足", Toast.LENGTH_LONG).show();
+                } else {
                     //没有下载
                     TaskInfo info = new TaskInfo();
                     info.setFileName(downMap.getName());
@@ -223,6 +223,15 @@ public class DownAdapter extends BaseAdapter implements View.OnClickListener, Co
         }
         notifyDataSetChanged();
 
+    }
+
+    public void onDestory() {
+        downLoadManager = null;
+        context = null;
+        mapList.clear();
+        mapList = null;
+        listdata.clear();
+        listdata = null;
     }
 
     static class Holder {

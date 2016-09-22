@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="down_stype">
+        <item>全部</item>
+        <item>矢量地图</item>
+        <item>影像地图</item>
+        <item>透明地图</item>
+    </string-array>
+</resources>

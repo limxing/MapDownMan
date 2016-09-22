@@ -5,14 +5,24 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,18 +42,24 @@ import me.leefeng.mapdownman.download.utils.XListView.XListView;
 /**
  * Created by limxing on 16/7/20.
  */
-public class DownActivity extends AppCompatActivity implements DownView, View.OnClickListener, XListView.IXListViewListener {
+public class DownActivity extends AppCompatActivity implements DownView, View.OnClickListener,
+        XListView.IXListViewListener, TextWatcher, View.OnTouchListener, AdapterView.OnItemSelectedListener {
     private static final int PERMISSTION_W = 0;
     private XListView down_listview;
     private Context mContext;
     private DownAdapter adapter;
     private DownImp presenter;
     private TextView down_left;
+    private View down_search_et;
+    private EditText down_search_text;
+    private Spinner down_spinner;
+    private String sraechType = "";
+    private String key = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SystemBarTintManager.initSystemBar(this);
+        SystemBarTintManager.initSystemBar(this, R.color.titlebac);
         setContentView(R.layout.activity_down);
         initView();
         presenter = new DownImp(this);
@@ -56,7 +72,15 @@ public class DownActivity extends AppCompatActivity implements DownView, View.On
     private void initView() {
         down_left = (TextView) findViewById(R.id.down_left);
         down_listview = (XListView) findViewById(R.id.down_listview);
+        down_listview.setOnTouchListener(this);
         findViewById(R.id.down_back).setOnClickListener(this);
+        findViewById(R.id.down_search).setOnClickListener(this);
+        findViewById(R.id.dowm_close).setOnClickListener(this);
+        down_spinner = (Spinner) findViewById(R.id.down_spinner);
+        down_spinner.setOnItemSelectedListener(this);
+        down_search_text = (EditText) findViewById(R.id.down_search_text);
+        down_search_text.addTextChangedListener(this);
+        down_search_et = findViewById(R.id.down_search_et);
         down_listview.setXListViewListener(this);
         down_listview.hideTimeView();
         mContext = DownActivity.this;
@@ -76,11 +100,8 @@ public class DownActivity extends AppCompatActivity implements DownView, View.On
         down_listview.setAdapter(adapter);
     }
 
-    /**
-     * 设置内存剩余
-     */
     @Override
-    public void checkSd() {
+    public void checkSD() {
         down_left.setText(getSD());
     }
 
@@ -92,6 +113,7 @@ public class DownActivity extends AppCompatActivity implements DownView, View.On
         super.onDestroy();
         presenter.onDestory();
         presenter = null;
+        adapter.onDestory();
     }
 
     /**
@@ -104,6 +126,19 @@ public class DownActivity extends AppCompatActivity implements DownView, View.On
         switch (view.getId()) {
             case R.id.down_back:
                 finish();
+                break;
+            case R.id.down_search:
+                down_search_et.setVisibility(View.VISIBLE);
+                down_listview.setPullRefreshEnable(false);
+                down_search_text.requestFocus();
+                showInput(true);
+                break;
+            case R.id.dowm_close:
+                down_search_et.setVisibility(View.GONE);
+                down_listview.setPullRefreshEnable(true);
+                refreshSuccess(presenter.getList());
+                down_search_text.setText("");
+                showInput(false);
                 break;
         }
     }
@@ -206,5 +241,84 @@ public class DownActivity extends AppCompatActivity implements DownView, View.On
         String blank = StringUtils.formatFileSize(file1.getUsableSpace());
         String total = StringUtils.formatFileSize(file1.getTotalSpace());
         return blank + "/" + total;
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        key = down_search_text.getText().toString().trim();
+        presenter.search(key, sraechType);
+    }
+
+    /**
+     * 是否关闭键盘
+     *
+     * @param b
+     */
+    protected void showInput(boolean b) {
+        View view = getWindow().peekDecorView();
+        if (view != null) {
+            InputMethodManager inputmanger = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (b) {
+                inputmanger.showSoftInput(down_search_text, 0);
+            } else {
+                inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            showInput(false);
+
+        }
+//        if (getWindow().getAttributes().softInputMode == WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+        return false;
+    }
+
+    /**
+     * Spinner的监听
+     *
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (position) {
+            case 0:
+                sraechType = "";
+                break;
+            case 1:
+                sraechType = "vect";
+                break;
+            case 3:
+                sraechType = "tran";
+                break;
+            case 2:
+                sraechType = "image";
+                break;
+        }
+        TextView tv = (TextView) view;
+        tv.setTextColor(Color.WHITE);    //设置颜色
+        tv.setTextSize(16.0f);    //设置大小
+        tv.setGravity(Gravity.CENTER_VERTICAL);   //设置居中
+        presenter.search(key, sraechType);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

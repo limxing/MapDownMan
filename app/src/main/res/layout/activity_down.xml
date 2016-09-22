@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eee"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#0056ac"
-        android:clipToPadding="true"
-        android:fitsSystemWindows="true">
+        android:clipToPadding="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,7 +30,54 @@
                 android:text="下载管理"
                 android:textColor="#ffffff"
                 android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/down_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingRight="20dp"
+                android:src="@drawable/download_sousuo" />
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/down_search_et"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#0056ac"
+            android:visibility="gone">
+
+            <Spinner
+                android:id="@+id/down_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/down_sanjiao"
+                android:entries="@array/down_stype"
+                android:paddingLeft="20dp"
+                android:spinnerMode="dropdown"></Spinner>
+
+            <EditText
+                android:id="@+id/down_search_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/down_spinner"
+                android:drawableLeft="@drawable/download_sousuo"
+                android:hint="请输入关键字"
+
+                android:textColor="#fff"
+                android:textColorHint="#bbb" />
+
+            <ImageView
+                android:id="@+id/dowm_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingRight="20dp"
+                android:src="@drawable/down_close" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -48,6 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true" />
     </RelativeLayout>
+
 
     <me.leefeng.mapdownman.download.utils.XListView.XListView
         android:id="@+id/down_listview"

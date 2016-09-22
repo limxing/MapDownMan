@@ -39,7 +39,8 @@ public class DownImp implements DownPresenter {
     private static final int XML_FAILT = 1;
     private static final int FIRST_LOAD = 2;
     private static final int CHECK_SD = 3;
-    private  Timer timer;
+    private Timer timer;
+
     private DownView downView;
     private ArrayList<DownMap> list;
     private Context context;
@@ -49,13 +50,13 @@ public class DownImp implements DownPresenter {
         this.context = (DownActivity) downView;
         list = new ArrayList<DownMap>();
         mHandler.sendEmptyMessageDelayed(FIRST_LOAD, 50);
-        timer=new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 mHandler.sendEmptyMessage(CHECK_SD);
             }
-        },100,5000);
+        }, 1000, 5000);
     }
 
     @Override
@@ -66,9 +67,33 @@ public class DownImp implements DownPresenter {
     @Override
     public void onDestory() {
         timer.cancel();
-        timer=null;
+        timer = null;
         context = null;
         downView = null;
+    }
+
+    /**
+     * 搜索结果显示
+     *
+     * @param key  关键字
+     * @param type 类型
+     */
+    @Override
+    public void search(String key, String type) {
+        synchronized (this) {
+            ArrayList<DownMap> newList = new ArrayList<>();
+            for (DownMap downMap : list) {
+                if ((key.isEmpty() || downMap.getDescribe().contains(key)) && (type.isEmpty() || type.equals(downMap.getTileType()))) {
+                    newList.add(downMap);
+                }
+            }
+            downView.refreshSuccess(newList);
+        }
+    }
+
+    @Override
+    public ArrayList<DownMap> getList() {
+        return list;
     }
 
     /**
@@ -99,7 +124,7 @@ public class DownImp implements DownPresenter {
                         }
                         break;
                     case CHECK_SD:
-                        downImp.downView.checkSd();
+                        downImp.downView.checkSD();
                         break;
                 }
             }
@@ -111,9 +136,9 @@ public class DownImp implements DownPresenter {
 
     /**
      * 创建：李利锋
-     * <p>
+     * <p/>
      * 创建时间：2015-11-11 下午2:58:30
-     * <p>
+     * <p/>
      * 方法说明：请求xml并解析xml
      */
     private void download() {

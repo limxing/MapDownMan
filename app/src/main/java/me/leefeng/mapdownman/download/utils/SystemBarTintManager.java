@@ -16,7 +16,6 @@ package me.leefeng.mapdownman.download.utils;
  */
 
 
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -41,9 +40,8 @@ import android.widget.FrameLayout.LayoutParams;
 import java.lang.reflect.Method;
 
 /**
- * Class to manage status and navigation bar tint effects when using KitKat 
+ * Class to manage status and navigation bar tint effects when using KitKat
  * translucent system UI modes.
- *
  */
 public class SystemBarTintManager {
 
@@ -133,7 +131,7 @@ public class SystemBarTintManager {
 
     /**
      * Enable tinting of the system status bar.
-     *
+     * <p>
      * If the platform is running Jelly Bean or earlier, or translucent system
      * UI modes have not been enabled in either the theme or via window flags,
      * then this method does nothing.
@@ -149,7 +147,7 @@ public class SystemBarTintManager {
 
     /**
      * Enable tinting of the system navigation bar.
-     *
+     * <p>
      * If the platform does not have soft navigation keys, is running Jelly Bean
      * or earlier, or translucent system UI modes have not been enabled in either
      * the theme or via window flags, then this method does nothing.
@@ -354,7 +352,6 @@ public class SystemBarTintManager {
     /**
      * Class which describes system bar sizing and other characteristics for the current
      * device configuration.
-     *
      */
     public static class SystemBarConfig {
 
@@ -566,14 +563,13 @@ public class SystemBarTintManager {
     }
 
     /**
+     * @param activity activity
+     * @param color    titlebar的颜色
      * @name: 初始化系统状态栏颜色
      * 需要在布局文件中添加android:clipToPadding="true" android:fitsSystemWindows="true"
-     *
      * @autor Limxing
-     * @param activity activity
-     * @param color titlebar的颜色
      */
-    public static void initSystemBar(Activity activity,int color) {
+    public static void initSystemBar(Activity activity, int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(activity, true);
         }
@@ -583,12 +579,9 @@ public class SystemBarTintManager {
     }
 
     /**
-     * @name: 初始化系统状态栏颜色,默认是透明的titleBar
-     *
-     *
-     * @autor Limxing
      * @param activity activity
-     *
+     * @name: 初始化系统状态栏颜色, 默认是透明的titleBar
+     * @autor Limxing
      */
     public static void initSystemBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
