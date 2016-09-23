@@ -348,8 +348,27 @@ public class DownAdapter extends BaseAdapter implements View.OnClickListener, Co
                         break;
                     }
                 }
-
+                calculateSize();
                 notifyDataSetChanged();
+            }
+        }
+    }
+    /**
+     * 下载成功后，执行数目的计算
+     */
+    private void calculateSize() {
+        vect = image = tran = 0;
+        for (DownMap downMap : mapList) {
+            switch (downMap.getTileType()) {
+                case "vect":
+                    vect++;
+                    break;
+                case "image":
+                    image++;
+                    break;
+                case "tran":
+                    tran++;
+                    break;
             }
         }
     }
