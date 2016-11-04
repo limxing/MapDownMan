@@ -8,8 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-import me.leefeng.mapdownman.download.dbcontrol.bean.SQLDownLoadInfo;
-
 /**
  * 类功能描述：信息存储类，主要在任务下载各个环节执行数据的存储</br>
  *

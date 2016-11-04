@@ -1,7 +1,7 @@
 package me.leefeng.mapdownman.download;
 
 
-import me.leefeng.mapdownman.download.dbcontrol.bean.SQLDownLoadInfo;
+import me.leefeng.mapdownman.download.dbcontrol.SQLDownLoadInfo;
 
 /**
  * 类功能描述：</br>

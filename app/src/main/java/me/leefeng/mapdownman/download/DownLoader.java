@@ -3,7 +3,6 @@ package me.leefeng.mapdownman.download;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 
 import java.io.File;
@@ -18,7 +17,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import me.leefeng.mapdownman.download.dbcontrol.DataKeeper;
 import me.leefeng.mapdownman.download.dbcontrol.FileHelper;
-import me.leefeng.mapdownman.download.dbcontrol.bean.SQLDownLoadInfo;
+import me.leefeng.mapdownman.download.dbcontrol.SQLDownLoadInfo;
 
 /**
  * 类功能描述：下载执行类，每一个 DataKeeper对象 代表一个下载任务</br>

@@ -1,7 +1,6 @@
 package me.leefeng.mapdownman.download.activity;
 
 import android.content.Context;
-import android.support.v4.view.LayoutInflaterFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,7 +23,7 @@ import me.leefeng.mapdownman.download.DownLoadListener;
 import me.leefeng.mapdownman.download.DownLoadManager;
 import me.leefeng.mapdownman.download.DownLoadService;
 import me.leefeng.mapdownman.download.TaskInfo;
-import me.leefeng.mapdownman.download.dbcontrol.bean.SQLDownLoadInfo;
+import me.leefeng.mapdownman.download.dbcontrol.SQLDownLoadInfo;
 import me.leefeng.mapdownman.download.utils.DefaultDate;
 
 

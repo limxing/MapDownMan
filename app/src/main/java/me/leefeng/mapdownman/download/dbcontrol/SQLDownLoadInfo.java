@@ -1,4 +1,4 @@
-package me.leefeng.mapdownman.download.dbcontrol.bean;
+package me.leefeng.mapdownman.download.dbcontrol;
 /**
  * 类功能描述：下载任务对象</br>
  *

@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import me.leefeng.mapdownman.download.dbcontrol.DataKeeper;
 import me.leefeng.mapdownman.download.dbcontrol.FileHelper;
-import me.leefeng.mapdownman.download.dbcontrol.bean.SQLDownLoadInfo;
+import me.leefeng.mapdownman.download.dbcontrol.SQLDownLoadInfo;
 
 /**
  * 类功能描述：下载管理类</br>
